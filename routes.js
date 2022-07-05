@@ -56,6 +56,25 @@ router.get("/",async (req, res) => {
     }
 })
 
+// COUNT OVER WEIGHT PEOPLE
+router.get("/w",async (req, res) => {
+    try {
+        var count = 0
+        const data = await bmis.find()
+        for(var i = 0; i < data.length; i++) {
+            var x = data[i].bmi
+            if (x > 24.9){
+                count ++
+            }
+        }
+        res.send(count.toString())
+        console.log(count)
+    } catch (error) {
+        res.send({error: error.message}),
+        console.error(error)
+    }
+})
+
 router.delete("/",async (req, res) => {
     try {
         const data = await bmis.deleteMany()
